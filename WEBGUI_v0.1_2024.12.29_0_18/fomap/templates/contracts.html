@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+
+{% block title %}{{ page_title }}{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row mb-4">
+        <div class="col">
+            <h2>Contracts</h2>
+        </div>
+        <div class="col text-end">
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newContractModal">
+                New Contract
+            </button>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Status</th>
+                            <th>Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for contract in contracts %}
+                        <tr>
+                            <td>{{ contract.id }}</td>
+                            <td>{{ contract.name }}</td>
+                            <td>
+                                <span class="badge bg-{{ 'success' if contract.status == 'Active' else 'secondary' }}">
+                                    {{ contract.status }}
+                                </span>
+                            </td>
+                            <td>{{ contract.date }}</td>
+                            <td>
+                                <a href="{{ url_for('contract.get_contract', contract_id=contract.id) }}"
+                                   class="btn btn-sm btn-info">
+                                    View
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- New Contract Modal -->
+<div class="modal fade" id="newContractModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">New Contract</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="newContractForm">
+                    <div class="mb-3">
+                        <label for="contractName" class="form-label">Contract Name</label>
+                        <input type="text" class="form-control" id="contractName" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="contractStatus" class="form-label">Status</label>
+                        <select class="form-select" id="contractStatus" required>
+                            <option value="Active">Active</option>
+                            <option value="Inactive">Inactive</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="contractDate" class="form-label">Date</label>
+                        <input type="date" class="form-control" id="contractDate" required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="submitNewContract()">Create Contract</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+function submitNewContract() {
+    const form = document.getElementById('newContractForm');
+    const data = {
+        name: document.getElementById('contractName').value,
+        status: document.getElementById('contractStatus').value,
+        date: document.getElementById('contractDate').value
+    };
+
+    fetch('{{ url_for("contract.create_contract") }}', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.error) {
+            alert('Error: ' + data.error);
+        } else {
+            location.reload();
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('An error occurred while creating the contract');
+    });
+}
+</script>
+{% endblock %}

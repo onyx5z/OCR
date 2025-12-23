@@ -1,0 +1,21 @@
+A képen látható mappastruktúra a következő:
+WEBGUI_v0.1/
+├── fomap/
+│   ├── __init__.py
+│   ├── dashboard_routes.py
+│   ├── inventory_routes.py
+│   ├── main_routes.py
+│   ├── static/
+│   └── templates/
+└── run.py
+
+Ez egy tipikus Flask alkalmazás struktúra, ahol:
+
+fomap a fő alkalmazás csomag
+__init__.py inicializálja a Flask alkalmazást
+Különböző route fájlok (dashboard_routes.py, inventory_routes.py, main_routes.py) kezelik a különböző funkcionalitásokat
+static mappa tartalmazza a statikus fájlokat (CSS, JavaScript, képek)
+templates mappa tartalmazza a HTML sablonokat
+run.py az alkalmazás indító fájlja
+
+Ez egy jól szervezett struktúra, ami követi a Flask ajánlott gyakorlatait, és lehetővé teszi a kód moduláris szervezését különböző route fájlokba.

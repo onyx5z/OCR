@@ -1,0 +1,1 @@
+A gyökér mappának tekinti azt amelybe az első init van a blueprineknél.
