@@ -1,0 +1,27 @@
+Elektronikus számla
+2024-000018
+ELADÓ VEVŐ
+Billingo Demo Cég Nagy Partner Zrt.
+Budapest Gönyű
+Billingo Demo utca 1 Széles út 25
+1133 9071
+Magyarország Magyarország
+12345678-9-10
+ADÓSZÁM: 12345678-2-10
+BANKSZÁMLASZÁM: 12345678-12345678
+IBAN: HU11111111111111111111111111
+SWIFT/BIC: GNBAHUHB
+SZÁMLA KELTE : 2024. 09. 01. FIZETÉSI HATÁRIDŐ: 2024. 09. 01.
+TELJESÍTÉS KELTE: 2024. 09. 05. FIZETÉSI MÓD: Készpénz
+9 405 Ft
+FIZETENDŐ BRUTTÓ VÉGÖSSZEG:
+MEGNEVEZÉS MENNYISÉG NETTÓ EGYSÉGÁR NETTÓ ÁR ÁFA BRUTTÓ ÁR
+1 Telefontok 1 db 1 500 Ft 1 500 Ft 27% 1 905 Ft
+2 Névjegykártya 10 db 600 Ft 6 000 Ft 25% 7 500 Ft
+NETTÓ ÖSSZEG: 7 500 Ft
+27% ÁFA: 405 Ft
+25% ÁFA: 1 500 Ft
+FIZETENDŐ BRUTTÓ VÉGÖSSZEG: 9 405 Ft
+1/1 Oldal Ez a számla Billingo online számlázó programmal készült.
+A számla tartalma mindenben megfelel a hatályos Gyors és élvezetes számlázás bármikor, bárhonnan: Billingo.hu
+törvényekben foglaltaknak

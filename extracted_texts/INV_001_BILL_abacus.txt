@@ -1,0 +1,27 @@
+Számla
+2024-000017
+ELADÓ VEVŐ
+Billingo Demo Cég Demo Levente E.V.
+Budapest Felsőpetény
+Billingo Demo utca 1 Tátrai út 30
+1133 2611
+Magyarország Magyarország
+12345678-9-10
+ADÓSZÁM: 12345678-2-10
+BANKSZÁMLASZÁM: 12345678-12345678
+IBAN: HU11111111111111111111111111
+SWIFT/BIC: GNBAHUHB
+SZÁMLA KELTE : 2024. 09. 01. FIZETÉSI HATÁRIDŐ: 2024. 09. 09.
+TELJESÍTÉS KELTE: 2024. 09. 01. FIZETÉSI MÓD: Átutalás
+11 250 Ft
+FIZETENDŐ BRUTTÓ VÉGÖSSZEG:
+MEGNEVEZÉS MENNYISÉG NETTÓ EGYSÉGÁR NETTÓ ÁR ÁFA BRUTTÓ ÁR
+1 Névjegykártya 15 db 600 Ft 9 000 Ft 25% 11 250 Ft
+NETTÓ ÖSSZEG: 9 000 Ft
+25% ÁFA: 2 250 Ft
+FIZETENDŐ BRUTTÓ VÉGÖSSZEG: 11 250 Ft
+MEGJEGYZÉS
+Erre a hónapra vonatkozik a számla: Augusztus
+1/1 Oldal Ez a számla Billingo online számlázó programmal készült.
+A számla tartalma mindenben megfelel a hatályos Gyors és élvezetes számlázás bármikor, bárhonnan: Billingo.hu
+törvényekben foglaltaknak

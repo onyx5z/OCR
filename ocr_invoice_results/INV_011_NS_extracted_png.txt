@@ -1,0 +1,24 @@
+SZÁMLA Számlaszám:
+2021/00002
+Számla kiállító adatai: Vevő adatai:
+Bemutató Cég Kft. Kitalált Cég Bt.
+1111 Budapest 1113 Budapest
+Próba utca 5. Gesztenye u. 45.
+Adószám: 11111111-1-11 Adószám: 13781111-2-43
+Bankszámlaszám: 11112222-33334444-00000000
+Fizetési mód Számla kelte Teljesítés időpontja Fizetési határidő
+készpénz 2021.04.19. 2021.04.19. 2021.04.19.
+# Megnevezés
+Termékkód Vtsz/Szj/Teszor Menny.Mee. Nettó egységár ÁFA Nettó ÁFA érték Bruttó
+1. Villanyszerelés
+2,00óra 8 000 27% 16 000 4 320 20 320
+2. Kiszállási díj
+1,00db 5 000 27% 5 000 1 350 6 350
+(27%-os ÁFA) 27% 21 000 5 670 26 670
+Összesen: 21 000 5 670 26 670
+Fizetendő végösszeg: 26 670 Ft
+(huszonhatezer-hatszázhetven forint)
+Fizetve
+Oldal: 1 / 1
+NATURASOFT Forint számla 3.7.1.95 - (www.naturasoft.hu)
+A program a verzió kiadásakor hatályos magyar jogszabályoknak megfelel.

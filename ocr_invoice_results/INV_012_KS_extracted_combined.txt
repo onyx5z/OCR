@@ -1,0 +1,24 @@
+Számla (Minta)
+Az eredeti bizonylat másolata, csak tájékoztatásra! 6/2008
+Sorszám
+Szállító Vevő
+Fizetési mód Teljesítés időpontja Számla kelte Esedékesség
+Átutalás 2008.06.09. 2008.06.09. 2008.06.17.
+Megnevezés
+VTSZ/SZJ Súly MennyiségMee Egységár NettóÁfa % Áfaérték Bruttó
+Minta termék
+10db 5 900 Ft 59 000 Ft 20% 11 800 Ft 70 800 Ft
+A termék ára tartalmazza az egyedi fényezést, egyedi feliratozást,
+továbbá magába foglalja a csomagolást és a szállítást.
+Próba termék
+1db 1 500 Ft 1 500 Ft 20% 300 Ft 1 800 Ft
+Tervezési költség
+2óra 9 900 Ft 19 800 Ft 20% 3 960 Ft 23 760 Ft
+Logó és egyedi feliratozás tervezése a termékhez.
+Áfa % Nettó ÁFA Bruttó
+20% 80 300 Ft 16 060 Ft 96 360 Ft
+Összesen 80 300 Ft 16 060 Ft 96 360 Ft
+Fizetendő végösszeg: 96 360 Ft,
+azaz Kilencvenhatezer-háromszázhatvan Forint.
+Ez a számla a Kulcs-Soft Számítástechnika Zrt. rendszerével készült http://www.kulcs-soft.hu
+A számla a 47/2007. (XII.29.) PM rendeletnek megfelel.

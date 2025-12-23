@@ -1,0 +1,28 @@
+Eredeti p´eld´any
+Sz´amlasz´am: DGG-2014-2
+Rendel´essz´am: RSZ12345
+Sz´amla
+Sz´amlakibocs´at´o: Post´aza´si c´ım:
+E-sz´amla Kft. Teszt V´as´arl´o
+1234 Szeged Szentendre
+Kis utca 3. Posta utca 3/D
+Ad´osz´am: 13421739-2-13 2000
+Banksz´amla: 17000019-11507130-00000000
+Vev˝o: Teszt V´as´arl´o 2000 Szentendre, Als´o utca 2/C, Ad´osz´am: 12345678-1-23
+Fizet´esm´od: k´eszp´enz Telj.: 2014.10.17. Sz´amla kelt: 2014.10.17. Fizet´esi hat.: 2014.10.17.
+Nett´o egys´eg´ar Me Nett´o ´ar A´fakulcs A´fa ´ert´ek Brutt´o ´ar
+Els˝o t´etel
+1 000 Ft 1 db 1 000 Ft 27 % 270 Ft 1 270 Ft
+M´asodik t´etel
+800 Ft 2 ´ora 1 600 Ft 27 % 432 Ft 2 032 Ft
+Fizetend˝o: 3 302 Ft, azaz h´aromezer-h´aromsz´azkett˝o forint.
+Megjegyz´es:
+P´enzmozg´ast nem ig´enyel.
+A sz´amla k¨ozvet´ıtett szolg´altat´ast tartalmaz.
+Nett´o ¨osszesen A´FA ¨osszesen Brutt´o ¨osszesen
+A´FA 27 % 2 600 Ft 702 Ft 3 302 Ft
+Mind¨osszesen 2 600 Ft 702 Ft 3 302 Ft
+(cid:114)
+Sz´amla´zz.hu www.szamlazz.hu
+Asza´ml´atkia´ll´ıto´programotk´esz´ıtette: KBOSS.huKft. www.kboss.hu
+1/1

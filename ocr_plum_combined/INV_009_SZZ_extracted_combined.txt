@@ -1,0 +1,27 @@
+E-számlaKft.
+E
+1234Szeged Bankszámlaszám:
+Kisutca3. 17000019-11507130
+Adószám:11111111-1-11,HU22604224
+SZÁMLA
+Sorszám:DGG-2016-1
+Fizetésimód: átutalás
+VEVŐ:
+Teljesítésdátuma: 2016.01.03.
+TesztVásárló
+Kiállításdátuma: 2016.01.03.
+2000Szentendre
+Alsóutca2/c Fizetésihatáridő: 2016.01.03.
+Megnevezés Menny. Egységár Nettóár ÁFA ÁFAérték Bruttóár
+Elsőtétel 1db 1000 1000 27% 270 1270
+Másodiktétel 1db 800 800 27% 216 1016
+Összesen: 1800 486 2286
+ÁFA27%: 486
+Fizetendő:
+2 286 Ft
+Aszámlaaláírásésbélyegzőnélkülisérvényes!
+Pénzmozgástnemigényel.
+Aszámlaközvetítettszolgáltatásttartalmaz.
+SZÁMLÁZZ.HU
+EGYSZERŰEN ÉS GYORSAN
+Oldal1/1 A bizonylatot a Számlázz.hu készítette.

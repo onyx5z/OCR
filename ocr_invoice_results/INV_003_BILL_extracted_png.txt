@@ -1,0 +1,24 @@
+Díjbekérő
+BILL-DEMO / 000047
+ELADÓ VEVŐ
+Billingo Demo Cég Almafa Kft.
+Budapest Budapest
+Billingo Demo utca 1 Nagy utca 1
+1133 1071
+Magyarország Magyarország
+1213331551
+ADÓSZÁM: 12345678-2-10
+BANKSZÁMLASZÁM: 12345678-12345678
+IBAN: HU11111111111111111111111111
+SWIFT/BIC: GNBAHUHB
+DÍJBEKÉRŐ KELTE : 2024. 09. 01. FIZETÉSI HATÁRIDŐ: 2024. 09. 09.
+TELJESÍTÉS KELTE: 2024. 09. 01. FIZETÉSI MÓD: Átutalás
+127 000 Ft
+FIZETENDŐ BRUTTÓ VÉGÖSSZEG:
+MEGNEVEZÉS MENNYISÉG NETTÓ EGYSÉGÁR NETTÓ ÁR ÁFA BRUTTÓ ÁR
+1 Virágföld 100 liter 1 000 Ft 100 000 Ft 27% 127 000 Ft
+NETTÓ ÖSSZEG: 100 000 Ft
+27% ÁFA: 27 000 Ft
+FIZETENDŐ BRUTTÓ VÉGÖSSZEG: 127 000 Ft
+1/1 Oldal Ez a díjbekérő Billingo online számlázó programmal készült.
+Gyors és élvezetes számlázás bármikor, bárhonnan: Billingo.hu

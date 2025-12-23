@@ -1,0 +1,25 @@
+E
+Sorszám: DGG-2020-106
+Rendelésszám:
+SZÁMLA
+Számlakibocsátó: Vevő:
+E-számlaKft. TesztVásárló
+1234Szeged,Kisutca3. 2000Szentendre,Alsóutca2/C
+Adószám: 13421739-2-13 Adószám: 12345678-1-23
+Bankneve: Közösségiadószám:
+Bankszámlaszám:
+Közösségiadószám:
+Fizetésimód: Teljesítésdátuma: Kiállításdátuma: Fizetésihatáridő:
+átutalás 2020.05.14. 2020.05.14. 2020.05.14.
+Megnevezés Mennyiség Nettóegységár Áfakulcs Nettóár Áfaérték Bruttóár
+Elsőtétel 1db 1000 27% 1000 270 1270
+Másodiktétel 2db 800 27% 1600 432 2032
+Áfaösszesen Nettóösszesen Áfaösszesen Bruttóösszesen
+áfa27% 2600 702 3302
+Mindösszesen(Ft) 2600 702 3302
+Aszámlaaláírásésbélyegzőnélkülisérvényes!
+Megjegyzés: Pénzmozgástnemigényel.
+Aszámlaközvetítettszolgáltatásttartalmaz.
+Levelezés:2093Budajenő,Kőoltárutca4/a
+1
+Telefon:06201234567

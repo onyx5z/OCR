@@ -1,0 +1,36 @@
+Számla
+Számlakibocsátó:
+TesztAlmaKft
+9876CelldökmölkAlmaköz79.
+Adószám:11111111-1-11
+Közösségiadószám:EU7865432
+Bank:-
+Aszámlakibocsátójakisadózó.
+Vevő:
+TesztBt
+4531ÓfaluszigetKatautca55.
+Adószám:12345678-1-23
+Sorszám: KAT-2020-45
+Fizetésimód: átutalás
+Kiállításdátuma: 2020.09.21.
+Teljesítésdátuma: 2020.09.21.
+Fizetésihatáridő: 2020.09.21.
+Menny. Nettó ÁFA
+egységár
+Nettóár Áfaérték Bruttóár
+teszttermék
+20db 20 27%
+400 108 508
+teszttermék2
+10kg 3000 27%
+30000 8100 38100
+Összesen:38608Ft
+Nettó Áfa Bruttó
+összesen összesen összesen
+áfa27%:
+30400 8208 38608
+számlamegjegyzésteszt
+www.szamlazz.hu
+Számlázóprogramotkészítette:
+KBOSS.huKft.www.kboss.hu
+1
