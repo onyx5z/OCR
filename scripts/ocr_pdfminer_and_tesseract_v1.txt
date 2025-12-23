@@ -1,0 +1,85 @@
+#this script process invvoices (png and pdf aswell) with OCR plugin (pytesseract) and pdf extractor (pdfminer)
+-
+-
+-
+-
+import cv2
+import numpy as np
+import pytesseract
+from pdf2image import convert_from_path
+import pdfplumber
+import os
+
+
+def extract_embedded_text(pdf_path):
+    embedded_text = ""
+    with pdfplumber.open(pdf_path) as pdf:
+        for page in pdf.pages:
+            # Extract text from each page
+            embedded_text += page.extract_text() or ""
+    return embedded_text
+
+
+def process_pdf_invoice(pdf_path):
+    try:
+        # First, try to extract embedded text using pdfplumber
+        embedded_text = extract_embedded_text(pdf_path)
+
+        if embedded_text.strip():
+            print("Embedded text found and extracted.")
+            return embedded_text
+        else:
+            print("No embedded text found, proceeding with OCR.")
+
+        # Convert PDF to images for OCR
+        pages = convert_from_path(pdf_path, 300)
+        image = np.array(pages[0])
+
+        # Convert to grayscale
+        gray = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
+
+        # Apply binary threshold
+        _, binary = cv2.threshold(gray, 200, 255, cv2.THRESH_BINARY)
+
+        # Perform OCR
+        text = pytesseract.image_to_string(binary, lang='hun',
+                                           config='--psm 6')
+
+        return text
+
+    except Exception as e:
+        print(f"An error occurred while processing {pdf_path}: {str(e)}")
+        return None
+
+
+home_dir = os.path.expanduser("~")
+invoice_directory = os.path.join(home_dir, 'Documents', 'mock_inv_bill')
+output_directory = os.path.join(home_dir, 'Documents', 'ocr_plum_combined')
+os.makedirs(output_directory, exist_ok=True)
+
+for filename in os.listdir(invoice_directory):
+    if filename.endswith('.pdf'):
+        pdf_path = os.path.join(invoice_directory, filename)
+
+        print(f"Processing {filename}...")
+        extracted_text = process_pdf_invoice(pdf_path)
+
+        if extracted_text:
+            output_filename = f"{os.path.splitext(filename)[0]}_extracted_combined.txt"
+            output_path = os.path.join(output_directory, output_filename)
+
+            try:
+                with open(output_path, 'w', encoding='utf-8') as f:
+                    f.write(extracted_text)
+                print(f"Extracted text saved to {output_filename}")
+            except Exception as e:
+                print(f"Error saving extracted text for {filename}: {str(e)}")
+        else:
+            print(f"Failed to extract text from {filename}")
+
+print("\nProcessing completed.")
+print("Created/Modified files during execution:")
+print(
+    *[f for f in os.listdir(output_directory) if f.endswith('_extracted_combined.txt')],
+    sep='\n'
+)

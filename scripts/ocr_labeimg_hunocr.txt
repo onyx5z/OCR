@@ -1,0 +1,113 @@
+#this script converts OCR results to Label Studio format. Path directory might need changes.
+.
+.
+.
+.
+.
+import os
+import json
+import pytesseract
+from PIL import Image
+from pathlib import Path
+from uuid import uuid4
+import numpy as np
+
+# Get the home directory
+home_dir = os.path.expanduser("~")
+
+# Directory containing the PDF invoices (adjust as needed)
+invoice_directory = os.path.join(home_dir, 'Documents', 'prep_res')
+
+# Ensure the output directory exists
+output_directory = os.path.join(home_dir, 'Documents',
+                                'label_studio_annotations')
+os.makedirs(output_directory, exist_ok=True)
+
+
+def create_image_url(filepath):
+    """
+    Label Studio requires image URLs, so this defines the mapping from filesystem to URLs
+    if you use ./serve_local_files.sh <my-images-dir>, the image URLs are localhost:8081/filename.png
+    Otherwise you can build links like /data/upload/filename.png to refer to the files
+    """
+    filename = os.path.basename(filepath)
+    return f'http://localhost:8081/{filename}'
+
+
+def convert_to_ls(image, tesseract_output):
+    """
+    :param image: PIL image object
+    :param tesseract_output: the output from tesseract
+    :return: tasks.json ready to be imported into Label Studio with "Optical Character Recognition" template
+    """
+    image_width, image_height = image.size
+    results = []
+    all_scores = []
+
+    for i in range(len(tesseract_output['text'])):
+        if int(tesseract_output['conf'][
+                   i]) > 0:  # Only consider results with confidence > 0
+            word = tesseract_output['text'][i]
+            if word.strip():  # Skip empty strings
+                x, y, w, h = (
+                tesseract_output['left'][i], tesseract_output['top'][i],
+                tesseract_output['width'][i], tesseract_output['height'][i])
+
+                bbox = {
+                    'x': 100 * x / image_width,
+                    'y': 100 * y / image_height,
+                    'width': 100 * w / image_width,
+                    'height': 100 * h / image_height,
+                    'rotation': 0
+                }
+
+                confidence = float(tesseract_output['conf'][i]) / 100.0
+                region_id = str(uuid4())[:10]
+
+                bbox_result = {
+                    'id': region_id, 'from_name': 'bbox', 'to_name': 'image',
+                    'type': 'rectangle',
+                    'value': bbox}
+                transcription_result = {
+                    'id': region_id, 'from_name': 'transcription',
+                    'to_name': 'image', 'type': 'textarea',
+                    'value': dict(text=[word], **bbox), 'score': confidence}
+
+                results.extend([bbox_result, transcription_result])
+                all_scores.append(confidence)
+
+    return {
+        'data': {
+            'ocr': create_image_url(image.filename)
+        },
+        'predictions': [{
+            'result': results,
+            'score': sum(all_scores) / len(all_scores) if all_scores else 0
+        }]
+    }
+
+
+# Process the images and export the results
+tasks = []
+# Collect the receipt images from the invoice directory
+for f in Path(invoice_directory).glob('*.png'):
+    with Image.open(f.absolute()) as image:
+        # Convert the image to numpy array
+        img_np = np.array(image)
+
+        # Use Tesseract to get data with Hungarian language support
+        tesseract_output = pytesseract.image_to_data(img_np, lang='hun',
+                                                     config='--psm 6',
+                                                     output_type=pytesseract.Output.DICT)
+
+        task = convert_to_ls(image, tesseract_output)
+        tasks.append(task)
+
+# Create a file to import into Label Studio
+output_file = os.path.join(output_directory, 'ocr_tasks_hungarian_words.json')
+with open(output_file, mode='w', encoding='utf-8') as f:
+    json.dump(tasks, f, ensure_ascii=False, indent=2)
+
+# Print the names of created/modified files
+print("Created/Modified files during execution:")
+print(output_file)

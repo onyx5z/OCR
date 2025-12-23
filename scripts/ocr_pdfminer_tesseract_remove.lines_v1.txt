@@ -1,0 +1,141 @@
+#this script uses pdfminer pytesseract and for the last process it removes lines from invoices then shows what image preprocessing was made. (PDF only)
+-
+-
+-
+import cv2
+import numpy as np
+import pytesseract
+from pdf2image import convert_from_path
+import pdfplumber
+import os
+import matplotlib.pyplot as plt
+
+def extract_embedded_text(pdf_path):
+  embedded_text = ""
+  with pdfplumber.open(pdf_path) as pdf:
+      for page in pdf.pages:
+          embedded_text += page.extract_text() or ""
+  return embedded_text
+
+def remove_lines(gray_image):
+  thresh = cv2.threshold(gray_image, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)[1]
+
+  horizontal_kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (40, 1))
+  remove_horizontal = cv2.morphologyEx(thresh, cv2.MORPH_OPEN, horizontal_kernel, iterations=2)
+  cnts = cv2.findContours(remove_horizontal, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+  cnts = cnts[0] if len(cnts) == 2 else cnts[1]
+  for c in cnts:
+      cv2.drawContours(thresh, [c], -1, (0, 0, 0), 5)
+
+  vertical_kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (1, 40))
+  remove_vertical = cv2.morphologyEx(thresh, cv2.MORPH_OPEN, vertical_kernel, iterations=2)
+  cnts = cv2.findContours(remove_vertical, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+  cnts = cnts[0] if len(cnts) == 2 else cnts[1]
+  for c in cnts:
+      cv2.drawContours(thresh, [c], -1, (0, 0, 0), 5)
+
+  kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (3, 3))
+  result = 255 - cv2.dilate(thresh, kernel, iterations=1)
+
+  return result
+
+def process_pdf_invoice(pdf_path):
+  if not os.path.exists(pdf_path):
+      print(f"Error: The file {pdf_path} does not exist.")
+      return None
+
+  try:
+      # First, try to extract embedded text using pdfplumber
+      embedded_text = extract_embedded_text(pdf_path)
+
+      if embedded_text.strip():
+          print("Embedded text found and extracted.")
+          return embedded_text
+      else:
+          print("No embedded text found, proceeding with OCR.")
+
+      # Convert PDF to images for OCR
+      pages = convert_from_path(pdf_path, 300)
+      image = np.array(pages[0])
+
+      # Convert to grayscale
+      gray = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
+
+      # Remove lines
+      no_lines = remove_lines(gray)
+
+      #Create the output directory if it doesn't exist
+      home_dir = os.path.expanduser("~")
+      output_directory = os.path.join(home_dir, 'Documents', 'prep_res')
+      os.makedirs(output_directory, exist_ok=True)
+
+      # Generate output filename
+      base_name = os.path.basename(pdf_path)
+      name, _ = os.path.splitext(base_name)
+      output_path = os.path.join(output_directory, f"{name}_processed.png")
+
+      # Save the processed image
+      cv2.imwrite(output_path, no_lines)
+      print(f"Processed image saved to: {output_path}")
+
+      # Perform OCR on the image with lines removed
+      text = pytesseract.image_to_string(no_lines, lang='hun', config='--psm 6')
+
+      # Display images
+      fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2, 2, figsize=(15, 15))
+
+      ax1.imshow(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
+      ax1.set_title('Original Image')
+      ax1.axis('off')
+
+      ax2.imshow(gray, cmap='gray')
+      ax2.set_title('Grayscale Image')
+      ax2.axis('off')
+
+      ax3.imshow(cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)[1], cmap='gray')
+      ax3.set_title('Threshold')
+      ax3.axis('off')
+
+      ax4.imshow(no_lines, cmap='gray')
+      ax4.set_title('Image with Lines Removed')
+      ax4.axis('off')
+
+      plt.tight_layout()
+      plt.show()
+
+      return text
+
+  except Exception as e:
+      print(f"An error occurred while processing {pdf_path}: {str(e)}")
+      return None
+
+# Main execution
+home_dir = os.path.expanduser("~")
+invoice_directory = os.path.join(home_dir, 'Documents', 'mock_inv_bill')
+output_directory = os.path.join(home_dir, 'Documents', 'ocr_plum_combined')
+os.makedirs(output_directory, exist_ok=True)
+
+for filename in os.listdir(invoice_directory):
+  if filename.endswith('.pdf'):
+      pdf_path = os.path.join(invoice_directory, filename)
+
+      print(f"Processing {filename}...")
+      extracted_text = process_pdf_invoice(pdf_path)
+
+      if extracted_text:
+          output_filename = f"{os.path.splitext(filename)[0]}_extracted_png.txt"
+          output_path = os.path.join(output_directory, output_filename)
+
+          try:
+              with open(output_path, 'w', encoding='utf-8') as f:
+                  f.write(extracted_text)
+              print(f"Extracted text saved to {output_filename}")
+          except Exception as e:
+              print(f"Error saving extracted text for {filename}: {str(e)}")
+      else:
+          print(f"Failed to extract text from {filename}")
+
+print("\nProcessing completed.")
+print("Created/Modified files during execution:")
+print(*[f for f in os.listdir(output_directory) if f.endswith('_extracted3.txt')], sep='\n')
+print(*[f for f in os.listdir(os.path.join(home_dir, 'Documents', 'prep_res')) if f.endswith('_processed.png')], sep='\n')

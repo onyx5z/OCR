@@ -1,0 +1,62 @@
+#this script search for embededd metadata on pdf files then save it.
+#this program only scans pdf with embedded text. DOES not performs OCR.
+-
+-
+-
+-
+-
+import pdfplumber
+import os
+
+def process_pdf_invoice(pdf_path):
+  try:
+      # Open the PDF file
+      with pdfplumber.open(pdf_path) as pdf:
+          # Extract text from all pages
+          text = ""
+          for page in pdf.pages:
+              text += page.extract_text() or ""
+
+      return text
+
+  except Exception as e:
+      print(f"An error occurred while processing {pdf_path}: {str(e)}")
+      return None
+
+# Get the user's home directory
+home_dir = os.path.expanduser("~")
+
+# Directory containing the PDF invoices (adjust as needed)
+invoice_directory = os.path.join(home_dir, 'Documents', 'invoices')
+
+# Ensure the output directory exists
+output_directory = os.path.join(home_dir, 'Documents', 'extracted_texts')
+os.makedirs(output_directory, exist_ok=True)
+
+# Process all PDF files in the directory
+for filename in os.listdir(invoice_directory):
+  if filename.endswith('.pdf'):
+      pdf_path = os.path.join(invoice_directory, filename)
+
+      print(f"Processing {filename}...")
+      extracted_text = process_pdf_invoice(pdf_path)
+
+      if extracted_text:
+          # Save the extracted text
+          output_filename = f"{os.path.splitext(filename)[0]}_extractedplumber.txt"
+          output_path = os.path.join(output_directory, output_filename)
+
+          try:
+              with open(output_path, 'w', encoding='utf-8') as f:
+                  f.write(extracted_text)
+              print(f"Extracted text saved to {output_filename}")
+          except Exception as e:
+              print(f"Error saving extracted text for {filename}: {str(e)}")
+      else:
+          print(f"Failed to extract text from {filename}")
+
+print("\nProcessing completed.")
+print("Created/Modified files during execution:")
+print(
+  *[f for f in os.listdir(output_directory) if f.endswith('_extracted2gen.txt')],
+  sep='\n')

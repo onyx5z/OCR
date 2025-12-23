@@ -1,0 +1,97 @@
+import os
+import cv2
+import numpy as np
+
+# Set up directories
+home_dir = os.path.expanduser("~")
+invoice_directory = os.path.join(home_dir, 'Documents', 'original_invoice_ocr')
+output_directory = os.path.join(home_dir, 'Documents', 'removedlines')
+
+# Create output directory if it doesn't exist
+os.makedirs(output_directory, exist_ok=True)
+
+
+def remove_lines(gray_image):
+    # Threshold the image
+    thresh = \
+    cv2.threshold(gray_image, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)[
+        1]
+
+    # Remove horizontal lines
+    horizontal_kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (50, 1))
+    remove_horizontal = cv2.morphologyEx(thresh, cv2.MORPH_OPEN,
+                                         horizontal_kernel, iterations=2)
+    cnts = cv2.findContours(remove_horizontal, cv2.RETR_EXTERNAL,
+                            cv2.CHAIN_APPROX_SIMPLE)
+    cnts = cnts[0] if len(cnts) == 2 else cnts[1]
+    for c in cnts:
+        cv2.drawContours(thresh, [c], -1, (0, 0, 0), 2)
+
+    # Remove vertical lines
+    vertical_kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (1, 50))
+    remove_vertical = cv2.morphologyEx(thresh, cv2.MORPH_OPEN, vertical_kernel,
+                                       iterations=2)
+    cnts = cv2.findContours(remove_vertical, cv2.RETR_EXTERNAL,
+                            cv2.CHAIN_APPROX_SIMPLE)
+    cnts = cnts[0] if len(cnts) == 2 else cnts[1]
+    for c in cnts:
+        cv2.drawContours(thresh, [c], -1, (0, 0, 0), 5)
+
+    # Dilate to remove any small noise and invert image
+    kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (2, 2))
+    result = 255 - cv2.dilate(thresh, kernel, iterations=1)
+
+    return result
+
+
+# Check if input directory exists
+if not os.path.exists(invoice_directory):
+    print(f"Error: Input directory '{invoice_directory}' does not exist.")
+    print("Please make sure the directory exists and contains PNG files.")
+else:
+    # Process all PNG files in the input directory
+    png_files = [f for f in os.listdir(invoice_directory) if
+                 f.lower().endswith('.png')]
+
+    if not png_files:
+        print(
+            f"No PNG files found in the input directory: {invoice_directory}")
+    else:
+        for filename in png_files:
+            input_path = os.path.join(invoice_directory, filename)
+            output_filename = f"removedlines_{filename}"
+            output_path = os.path.join(output_directory, output_filename)
+
+            try:
+                # Read the image in grayscale
+                gray_image = cv2.imread(input_path, cv2.IMREAD_GRAYSCALE)
+
+                if gray_image is None:
+                    print(f"Error: Unable to read file {filename}. Skipping.")
+                    continue
+
+                # Remove lines
+                result = remove_lines(gray_image)
+
+                # Save the result
+                cv2.imwrite(output_path, result)
+
+                print(f"Processed: {filename} -> {output_filename}")
+            except Exception as e:
+                print(f"Error processing {filename}: {str(e)}")
+
+        print("\nLine removal completed for all PNG files.")
+        print("\nCreated/Modified files:")
+        for filename in os.listdir(output_directory):
+            if filename.startswith(
+                    "removedlines_") and filename.lower().endswith('.png'):
+                print(os.path.join(output_directory, filename))
+
+print("\nScript execution completed.")
+
+# Created/Modified files during execution:
+print("\nCreated/Modified files:")
+for filename in os.listdir(output_directory):
+    if filename.startswith("removedlines_") and filename.lower().endswith(
+            '.png'):
+        print(os.path.join(output_directory, filename))
